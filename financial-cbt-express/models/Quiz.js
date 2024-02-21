@@ -1,0 +1,16 @@
+const mongoose = require('mongoose');
+
+const quizSchema = new mongoose.Schema({
+    article: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Article'
+    },
+    num : Number,
+    questions : String,
+    answer : String,
+    options : Array
+});
+
+const Quiz = mongoose.model("Quiz", quizSchema);
+
+module.exports = Quiz;
