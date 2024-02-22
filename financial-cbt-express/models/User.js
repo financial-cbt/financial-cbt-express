@@ -49,6 +49,7 @@ visibleUser.get(function (value, virtual, doc) {
     return {
         _id: doc._id,
         email: doc.email,
+        nickname : doc.nickname
     };
 });
 

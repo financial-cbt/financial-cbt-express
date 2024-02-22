@@ -4,11 +4,17 @@ const articleSchema = new mongoose.Schema({
     num : Number,
     title : String,
     body : String,
-    word : [ {
+    word : [{
         start : Number,
         end : Number,
-        desc : String
-    }]
+        dictionary: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'dictionary'
+        }],
+    }],
+    date : String,
+    reporter : String,
+    photoUrl : String
 });
 
 const Article = mongoose.model("Article", articleSchema, "Article");
