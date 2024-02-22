@@ -6,11 +6,11 @@ const quizSchema = new mongoose.Schema({
         ref: 'Article'
     },
     num : Number,
-    questions : String,
+    question : String,
     answer : String,
     options : Array
 });
 
-const Quiz = mongoose.model("Quiz", quizSchema);
+const Quiz = mongoose.model("Quiz", quizSchema, "Quiz");
 
 module.exports = Quiz;
