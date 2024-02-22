@@ -42,89 +42,19 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
 });
 
-// const readJsonFile = async (filePath) => {
-//   return new Promise((resolve, reject) => {
-//     fs.readFile(filePath, 'utf8', (err, data) => {
-//       if (err) {
-//         reject(err);
-//       } else {
-//         resolve(data);
-//       }
-//     });
-//   });
-// };
-
-// const saveDataToMongoDB = async (jsonData) => {
+// const find = async () => {
 //   try {
-//     const quizs = await Quiz.create(jsonData);
-//     console.log('저장완료');
-//   } catch (err) {
-//     console.error('Error saving data to MongoDB:', err);
-//   }
-// };
+//     const quizs = await Quiz.find({});
+//     console.log(quizs.length)
 
-// const jsonFilePath = './merge.json';
+//     const dictionarys = await Dictionary.find({});
+//     console.log(dictionarys.length)
 
-// const processData = async () => {
-//   try {
-//     const data = await readJsonFile(jsonFilePath);
-//     const jsonData = JSON.parse(data);
-//     await saveDataToMongoDB(jsonData);
 //   } catch (error) {
-//     console.error('Error:', error);
+//     console.error('Error finding comments:', error);
 //   }
 // };
 
-// processData();
-
-// const readJsonFile = async (filePath) => {
-//   return new Promise((resolve, reject) => {
-//     fs.readFile(filePath, 'utf8', (err, data) => {
-//       if (err) {
-//         reject(err);
-//       } else {
-//         resolve(data);
-//       }
-//     });
-//   });
-// };
-
-// const saveDataToMongoDB = async (jsonData) => {
-//   try {
-//     const dictionarys = await Dictionary.create(jsonData);
-//     console.log('저장완료');
-//   } catch (err) {
-//     console.error('Error saving data to MongoDB:', err);
-//   }
-// };
-
-// const jsonFilePath = './dictionary.json';
-
-// const processData = async () => {
-//   try {
-//     const data = await readJsonFile(jsonFilePath);
-//     const jsonData = JSON.parse(data);
-//     await saveDataToMongoDB(jsonData);
-//   } catch (error) {
-//     console.error('Error:', error);
-//   }
-// };
-
-// processData();
-
-const find = async () => {
-  try {
-    const quizs = await Quiz.find({});
-    console.log(quizs.length)
-
-    const dictionarys = await Dictionary.find({});
-    console.log(dictionarys.length)
-
-  } catch (error) {
-    console.error('Error finding comments:', error);
-  }
-};
-
-find();
+// find();
 
 module.exports = app;
