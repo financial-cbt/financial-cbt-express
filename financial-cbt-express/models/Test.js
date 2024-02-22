@@ -13,6 +13,6 @@ const testSchema = new mongoose.Schema({
     useranswers : Array
 });
 
-const Test = mongoose.model("Test", testSchema);
+const Test = mongoose.model("Test", testSchema, "Test");
 
 module.exports = Test;

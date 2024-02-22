@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const dictionarySchema = new mongoose.Schema({
-    word : String,
-    desc : String
+    term : String,
+    commentary : String
 });
 
-const Dictionary = mongoose.model("Dictionary", dictionarySchema);
+const Dictionary = mongoose.model("Dictionary", dictionarySchema, "Dictionary");
 
 module.exports = Dictionary;
