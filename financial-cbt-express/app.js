@@ -6,6 +6,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const Quiz = require('./models/Quiz');
+const Dictionary = require('./models/Dictionary');
 const fs = require('fs');
 
 const mongoose = require('./utils/Mongoose');
@@ -75,5 +76,55 @@ app.use(function (err, req, res, next) {
 // };
 
 // processData();
+
+// const readJsonFile = async (filePath) => {
+//   return new Promise((resolve, reject) => {
+//     fs.readFile(filePath, 'utf8', (err, data) => {
+//       if (err) {
+//         reject(err);
+//       } else {
+//         resolve(data);
+//       }
+//     });
+//   });
+// };
+
+// const saveDataToMongoDB = async (jsonData) => {
+//   try {
+//     const dictionarys = await Dictionary.create(jsonData);
+//     console.log('저장완료');
+//   } catch (err) {
+//     console.error('Error saving data to MongoDB:', err);
+//   }
+// };
+
+// const jsonFilePath = './dictionary.json';
+
+// const processData = async () => {
+//   try {
+//     const data = await readJsonFile(jsonFilePath);
+//     const jsonData = JSON.parse(data);
+//     await saveDataToMongoDB(jsonData);
+//   } catch (error) {
+//     console.error('Error:', error);
+//   }
+// };
+
+// processData();
+
+const find = async () => {
+  try {
+    const quizs = await Quiz.find({});
+    console.log(quizs.length)
+
+    const dictionarys = await Dictionary.find({});
+    console.log(dictionarys.length)
+
+  } catch (error) {
+    console.error('Error finding comments:', error);
+  }
+};
+
+find();
 
 module.exports = app;

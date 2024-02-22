@@ -8,7 +8,7 @@ const quizSchema = new mongoose.Schema({
     num : Number,
     question : String,
     answer : String,
-    options : Array
+    option : Array
 });
 
 const Quiz = mongoose.model("Quiz", quizSchema, "Quiz");
