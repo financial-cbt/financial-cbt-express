@@ -10,7 +10,8 @@ const testSchema = new mongoose.Schema({
     wrongquiz : Array,
     correctnum : Number,
     wrongnum : Number,
-    useranswers : Array
+    useranswers : Array,
+    date : Date
 });
 
 const Test = mongoose.model("Test", testSchema, "Test");
