@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const Quiz = require('./models/Quiz');
+const fs = require('fs');
 
 const mongoose = require('./utils/Mongoose');
 const cors = require('cors');
@@ -38,5 +40,40 @@ app.use(function (err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
 });
+
+// const readJsonFile = async (filePath) => {
+//   return new Promise((resolve, reject) => {
+//     fs.readFile(filePath, 'utf8', (err, data) => {
+//       if (err) {
+//         reject(err);
+//       } else {
+//         resolve(data);
+//       }
+//     });
+//   });
+// };
+
+// const saveDataToMongoDB = async (jsonData) => {
+//   try {
+//     const quizs = await Quiz.create(jsonData);
+//     console.log('저장완료');
+//   } catch (err) {
+//     console.error('Error saving data to MongoDB:', err);
+//   }
+// };
+
+// const jsonFilePath = './merge.json';
+
+// const processData = async () => {
+//   try {
+//     const data = await readJsonFile(jsonFilePath);
+//     const jsonData = JSON.parse(data);
+//     await saveDataToMongoDB(jsonData);
+//   } catch (error) {
+//     console.error('Error:', error);
+//   }
+// };
+
+// processData();
 
 module.exports = app;
