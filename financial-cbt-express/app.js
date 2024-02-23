@@ -27,6 +27,9 @@ app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/test', testRouter);
 
+const articleRouter = require('./routes/article.js');
+app.use('/api/article', articleRouter);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
