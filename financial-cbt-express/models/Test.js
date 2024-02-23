@@ -5,12 +5,12 @@ const testSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    allquiz : Array,
-    correctquiz : Array,
-    wrongquiz : Array,
-    correctnum : Number,
-    wrongnum : Number,
-    useranswers : Array,
+    allQuiz : Array,
+    correctQuiz : Array,
+    wrongQuiz : Array,
+    correctNum : Number,
+    wrongNum : Number,
+    userAnswers : Array,
     date : Date
 });
 
