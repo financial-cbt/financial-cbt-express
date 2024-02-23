@@ -4,17 +4,41 @@ const router = express.Router();
 const Article = require("../models/Article");
 const Dictionary = require("../models/Dictionary");
 
+router.get('/:articleid', async function (req, res, next) {
+    const articleid = req.params.articleid;
+
+    try {
+        const articles = await Article.find({ num: articleid }).lean();
+        const populatedArticles = await Promise.all(articles.map(async (article) => {
+            const { _id, body, word, ...rest } = article;
+            const combinedBody = body.join(' ');
+            const populatedWords = await Promise.all(word.map(async (wordItem) => {
+                const { _id: wordId, dictionary, ...wordRest } = wordItem;
+                const populatedDictionary = await Dictionary.findById(dictionary).select('-_id commentary term').lean();
+                const { _id, ...dictionaryRest } = populatedDictionary;
+                return { ...wordRest, ...dictionaryRest };
+            }));
+            return { ...rest, body: combinedBody, word: populatedWords };
+        }));
+        res.json(populatedArticles);
+    } catch (err) {
+        next(err);
+    }
+});
+
+
 router.get('/', async function (req, res, next) {
     try {
         const articles = await Article.find().lean();
         const populatedArticles = await Promise.all(articles.map(async (article) => {
-            let commentary = "";
-            const populatedWords = await Promise.all(article.word.map(async (word) => {
-                const dictionary = await Dictionary.findById(word.dictionary).select('-_id commentary term').lean();
-                commentary = dictionary.commentary;
-                return { ...word, dictionary, commentary };
+            const { _id, word, ...rest } = article;
+            const populatedWords = await Promise.all(word.map(async (wordItem) => {
+                const { _id: wordId, dictionary, ...wordRest } = wordItem;
+                const populatedDictionary = await Dictionary.findById(dictionary).select('-_id commentary term').lean();
+                const { _id, ...dictionaryRest } = populatedDictionary;
+                return { ...wordRest, ...dictionaryRest };
             }));
-            return { ...article, word: populatedWords.map(({ _id, ...rest }) => rest) };
+            return { ...rest, word: populatedWords };
         }));
         res.json(populatedArticles);
     } catch (err) {
