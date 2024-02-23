@@ -8,9 +8,11 @@ router.get('/', async function (req, res, next) {
     try {
         const articles = await Article.find().lean();
         const populatedArticles = await Promise.all(articles.map(async (article) => {
+            let commentary = "";
             const populatedWords = await Promise.all(article.word.map(async (word) => {
                 const dictionary = await Dictionary.findById(word.dictionary).select('-_id commentary term').lean();
-                return { ...word, dictionary };
+                commentary = dictionary.commentary;
+                return { ...word, dictionary, commentary };
             }));
             return { ...article, word: populatedWords.map(({ _id, ...rest }) => rest) };
         }));
