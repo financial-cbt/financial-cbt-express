@@ -7,10 +7,10 @@ const articleSchema = new mongoose.Schema({
     word: [{
         start: Number,
         end: Number,
-        dictionary: [{
+        dictionary: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'dictionary'
-        }],
+        },
     }],
     date: String,
     reporter: String,
