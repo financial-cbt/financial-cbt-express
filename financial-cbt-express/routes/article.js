@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const Article = require("../models/Article");
 const Dictionary = require("../models/Dictionary");
-
+//
 router.get('/:articleid', async function (req, res, next) {
     const articleid = req.params.articleid;
 
