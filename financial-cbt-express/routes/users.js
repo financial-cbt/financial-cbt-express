@@ -17,7 +17,7 @@ router.post("/signup", async (req, res, next) => {
     res.json(req.body)
   } catch(err) {
     console.error(err);
-    res.json(err)
+    res.status(500).json({ message: "email, password, nickName을 정확히 입력해주세요." });
  }
 })
 
