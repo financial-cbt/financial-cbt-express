@@ -11,8 +11,8 @@ router.get('/', function(req, res, next) {
 
 router.post("/signup", async (req, res, next) => {
   try {
-    const {email, password, nickname} = req.body;
-    const user = await User.signUp(email, password, nickname);
+    const {email, password, nickName} = req.body;
+    const user = await User.signUp(email, password, nickName);
     console.log(req.body);
     res.json(req.body)
   } catch(err) {
@@ -23,8 +23,10 @@ router.post("/signup", async (req, res, next) => {
 
 router.post("/login", async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const { email, password} = req.body;
     const user = await User.login(email, password);
+    console.log(user)
+
     const tokenMaxAge = 60 * 60 * 24 * 3;
     const token = createToken(user, tokenMaxAge);
 
@@ -35,11 +37,10 @@ router.post("/login", async (req, res, next) => {
       maxAge: tokenMaxAge * 1000,
     }); // 쿠키로 토큰 보내기
 
-    console.log(user);
     res.status(201).json(user); // 응답의 body로도 보낸다
   } catch (err) {
     console.error(err);
-    res.json(err)
+    res.status(500).json({ message: "email, password를 확인해주세요." });
   }
 })
 

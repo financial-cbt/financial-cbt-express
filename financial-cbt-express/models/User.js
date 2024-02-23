@@ -14,15 +14,15 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "비밀번호가 입력되어야 합니다."],
     },
-    nickname : {type : String, required : true}
+    nickName : {type : String, required : true}
 });
 
-userSchema.statics.signUp = async function(email, password, nickname){
+userSchema.statics.signUp = async function(email, password, nickName){
     const salt = await bcrypt.genSalt();
     console.log(salt);
     try {
         const hashedPassword = await bcrypt.hash(password, salt);
-        const user = await this.create({email, password: hashedPassword, nickname});
+        const user = await this.create({email, password: hashedPassword, nickName});
         return {
             _id: user._id,
             email: user.email,
@@ -49,7 +49,7 @@ visibleUser.get(function (value, virtual, doc) {
     return {
         _id: doc._id,
         email: doc.email,
-        nickname : doc.nickname
+        nickname : doc.nickName
     };
 });
 
