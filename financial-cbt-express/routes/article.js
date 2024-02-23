@@ -3,22 +3,21 @@ const express = require('express');
 const router = express.Router();
 const Article = require("../models/Article");
 const Dictionary = require("../models/Dictionary");
-//
+
 router.get('/:articleid', async function (req, res, next) {
     const articleid = req.params.articleid;
 
     try {
         const articles = await Article.find({ num: articleid }).lean();
         const populatedArticles = await Promise.all(articles.map(async (article) => {
-            const { _id, body, word, ...rest } = article;
-            const combinedBody = body.join(' ');
+            const { _id, word, ...rest } = article;
             const populatedWords = await Promise.all(word.map(async (wordItem) => {
                 const { _id: wordId, dictionary, ...wordRest } = wordItem;
                 const populatedDictionary = await Dictionary.findById(dictionary).select('-_id commentary term').lean();
                 const { _id, ...dictionaryRest } = populatedDictionary;
                 return { ...wordRest, ...dictionaryRest };
             }));
-            return { ...rest, body: combinedBody, word: populatedWords };
+            return { ...rest, word: populatedWords };
         }));
         res.json(populatedArticles);
     } catch (err) {
