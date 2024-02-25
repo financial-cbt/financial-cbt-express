@@ -44,9 +44,9 @@ router.post("/finish/:userId", async (req, res, next) => {
             correctNum : correct.length,
             wrongNum : wrong.length,
             userAnswers : userAnswer,
-            date : new Date()
+            date : new Date(),
+            accuracy : accuracy
         });
-        console.log(1)
 
         res.json({message : "Test 저장완료", test});
         

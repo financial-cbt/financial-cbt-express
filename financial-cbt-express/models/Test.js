@@ -11,7 +11,8 @@ const testSchema = new mongoose.Schema({
     correctNum : Number,
     wrongNum : Number,
     userAnswers : Array,
-    date : Date
+    date : Date,
+    accuracy : Array // 틀렸는지, 맞았는지
 });
 
 const Test = mongoose.model("Test", testSchema, "Test");
