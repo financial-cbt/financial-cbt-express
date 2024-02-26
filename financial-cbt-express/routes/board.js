@@ -27,12 +27,11 @@ router.get("/:boardId", async (req, res, next) => {
 //로그인된 사용자만 글을 작성할 수 있게함
 router.post("/", async (req, res, next) => {
   try {
-    console.log("11", req.body);
     const board = await Board.create({
       title: req.body.title,
-      author: req.body.user.user._id,
+      author: req.body.author,
       content: req.body.content,
-      nickname: req.body.user.user.nickname,
+      nickname: req.body.nickname,
     });
     res.json(board);
   } catch (err) {
@@ -94,15 +93,12 @@ router.get("/:boardId/comment", async (req, res, next) => {
 //특정 게시글 id에 댓글 작성
 router.post("/:boardId/comment", async (req, res, next) => {
   try {
-    console.log(req.body);
     const comment = await Comment.create({
       content: req.body.content,
-      author: req.body.user._id,
-      nickname: req.body.user.nickname,
+      author: req.body.author,
+      nickname: req.body.nickname,
       board: req.params.boardId,
     });
-    console.log("userId", user._id);
-    // console.log("author", author);
     res.json(comment);
   } catch (err) {
     console.error(err);
