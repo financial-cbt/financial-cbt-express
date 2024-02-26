@@ -13,7 +13,7 @@ router.get('/:articleid', async function (req, res, next) {
             const { _id, word, ...rest } = article;
             const populatedWords = await Promise.all(word.map(async (wordItem) => {
                 const { _id: wordId, dictionary, ...wordRest } = wordItem;
-                const populatedDictDictionaryionary = await Dictionary.findById(dictionary).select('-_id commentary term').lean();
+                const populatedDictionary = await Dictionary.findById(dictionary).select('-_id commentary term').lean();
                 const { _id, ...dictionaryRest } = populatedDictionary;
                 return { ...wordRest, ...dictionaryRest };
             }));
