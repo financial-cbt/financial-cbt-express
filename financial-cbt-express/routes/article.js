@@ -13,7 +13,7 @@ router.get('/:articleid', async function (req, res, next) {
             const { _id, word, ...rest } = article;
             const populatedWords = await Promise.all(word.map(async (wordItem) => {
                 const { _id: wordId, dictionary, ...wordRest } = wordItem;
-                const populatedDictionary = await Dictionary.findById(dictionary).select('-_id commentary term').lean();
+                const populatedDictDictionaryionary = await Dictionary.findById(dictionary).select('-_id commentary term').lean();
                 const { _id, ...dictionaryRest } = populatedDictionary;
                 return { ...wordRest, ...dictionaryRest };
             }));
@@ -44,6 +44,16 @@ router.get('/', async function (req, res, next) {
         next(err);
     }
 });
+
+const initDictionary = async () => {
+    const filePath = './routes/dictionary.json'
+    const initDictionary = JSON.parse(fs.readFileSync(filePath));
+
+    Dictionary.insertMany(initDictionary)
+        .then(data => console.log("init Dictionary"))
+        .catch(err => console.log(err));
+}
+// initDictionary();
 
 const initArticle = async () => {
     const filePath = './routes/article.json'

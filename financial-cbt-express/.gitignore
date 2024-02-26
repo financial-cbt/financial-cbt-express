@@ -2,5 +2,8 @@
 check.js
 merge.json
 dictionary.json
+<<<<<<< Updated upstream
 node_modules
+=======
+>>>>>>> Stashed changes
 article.json
