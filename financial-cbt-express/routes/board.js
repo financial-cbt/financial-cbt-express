@@ -62,7 +62,7 @@ router.put("/:boardId", async (req, res, next) => {
 });
 
 //특정 게시글 id로 삭제
-router.delete("/:boardId", authenticate, async (req, res, next) => {
+router.delete("/:boardId", async (req, res, next) => {
   try {
     const board = await Board.findByIdAndDelete(req.params.boardId);
     if (!board) {
@@ -120,24 +120,5 @@ router.delete("/:boardId/comment/:commentId", async (req, res, next) => {
     console.error(err);
   }
 });
-// 로그인 체크
-async function authenticate(req, res, next) {
-  let token = req.cookies.authToken;
-  let headerToken = req.headers.authorization;
-  if (!token && headerToken) {
-    token = headerToken.split(" ")[1];
-  }
-
-  const user = verifyToken(token);
-  console.log(user);
-  req.user = user;
-  if (!user) {
-    const error = new Error("Authorization Failed");
-    error.status = 403;
-
-    next(error);
-  }
-  next();
-}
 
 module.exports = router;
