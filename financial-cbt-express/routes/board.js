@@ -3,6 +3,7 @@ var router = express.Router();
 const { Board, Comment } = require("../models/Board");
 const User = require("../models/User");
 var { verifyToken } = require("../utils/auth");
+const moment = require("moment");
 
 //전체 게시글 조회
 router.get("/", async (req, res, next) => {
@@ -32,6 +33,7 @@ router.post("/", async (req, res, next) => {
       author: req.body.author,
       content: req.body.content,
       nickname: req.body.nickname,
+      createdAt: moment().format("YYYY-MM-DD HH:mm:ss"),
     });
     res.json(board);
   } catch (err) {
@@ -47,6 +49,7 @@ router.put("/:boardId", async (req, res, next) => {
       {
         title: req.body.title,
         content: req.body.content,
+        createdAt: moment().format("YYYY-MM-DD HH:mm:ss"),
       },
       { new: true }
     );
@@ -98,6 +101,8 @@ router.post("/:boardId/comment", async (req, res, next) => {
       author: req.body.author,
       nickname: req.body.nickname,
       board: req.params.boardId,
+      createdAt: moment().format("YYYY-MM-DD HH:mm:ss"),
+      updatedAt: null,
     });
     res.json(comment);
   } catch (err) {
@@ -127,6 +132,8 @@ router.put("/:boardId/comment/:commentId", async (req, res, next) => {
       req.params.commentId,
       {
         content: req.body.content,
+        createdAt: moment().format("YYYY-MM-DD HH:mm:ss"),
+        updatedAt: moment().format("YYYY-MM-DD HH:mm:ss"),
       },
       { new: true }
     );
