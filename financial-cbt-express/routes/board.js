@@ -121,4 +121,24 @@ router.delete("/:boardId/comment/:commentId", async (req, res, next) => {
   }
 });
 
+router.put("/:boardId/comment/:commentId", async (req, res, next) => {
+  try {
+    const comment = await Comment.findByIdAndUpdate(
+      req.params.commentId,
+      {
+        content: req.body.content,
+      },
+      { new: true }
+    );
+    if (!comment) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+    res.json({
+      updatedContent: comment,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 module.exports = router;
