@@ -5,25 +5,25 @@ const User = require('../models/User');
 const { createToken, verifyToken } = require('../utils/auth');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.send('respond with a resource');
 });
 
 router.post("/signup", async (req, res, next) => {
   try {
-    const {email, password, nickName} = req.body;
+    const { email, password, nickName } = req.body;
     const user = await User.signUp(email, password, nickName);
     console.log(req.body);
     res.json(req.body)
-  } catch(err) {
+  } catch (err) {
     console.error(err);
     res.status(500).json({ message: "email, password, nickName을 정확히 입력해주세요." });
- }
+  }
 })
 
 router.post("/login", async (req, res, next) => {
   try {
-    const { email, password} = req.body;
+    const { email, password } = req.body;
     const user = await User.login(email, password);
     console.log(user)
 
@@ -70,10 +70,10 @@ router.get("/protected", authenticate, async (req, res, next) => {
 router.all("/logout", async (req, res, next) => {
   try {
     res.cookie("authToken", "", {
-    httpOnly: true,
-    expires: new Date(Date.now()),
+      httpOnly: true,
+      expires: new Date(Date.now()),
     });
-    res.json({message: "로그아웃 완료"});
+    res.json({ message: "로그아웃 완료" });
   } catch (err) {
     console.error(err);
     res.json(err)
